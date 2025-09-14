@@ -1,21 +1,21 @@
 {
-  "name": "random-browser",
+  "name": "random-web-browser",
   "version": "1.0.0",
-  "description": "juste a random web browser for access to random sit ewith random extention and accesse normal website like github.",
+  "description": "Random Web Browser — A lightweight web browser that allows access to the World Wide Web and custom servers through DNS extensions. Easy to set up, perfect for developers and self-hosted services.",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
     "dist": "electron-builder"
   },
   "build": {
-    "appId": "com.monsuperbrowser.app",
-    "productName": "MonSuperBrowser",
+    "appId": "com.random-web-browser.app",
+    "productName": "random-web-browser",
     "files": [
       "**/*"
     ]
   },
   "author": "Satanas1275",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "@tailwindcss/cli": "^4.0.14",
     "@tanstack/react-router": "^1.131.41",
