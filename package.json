@@ -1,0 +1,46 @@
+{
+  "name": "random-browser",
+  "version": "1.0.0",
+  "description": "juste a random web browser for access to random sit ewith random extention and accesse normal website like github.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.monsuperbrowser.app",
+    "productName": "MonSuperBrowser",
+    "files": [
+      "**/*"
+    ]
+  },
+  "author": "Satanas1275",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.14",
+    "@tanstack/react-router": "^1.131.41",
+    "@tanstack/router-devtools": "^1.131.42",
+    "cors": "^2.8.5",
+    "custom-electron-titlebar": "^4.2.8",
+    "electron-store": "^10.1.0",
+    "express": "^5.1.0",
+    "framer-motion": "^12.23.12",
+    "immer": "^10.1.3",
+    "loadash": "^1.0.0",
+    "lodash": "^4.17.21",
+    "marked": "^15.0.7",
+    "node-fetch": "^3.3.2",
+    "pocketbase": "^0.26.2",
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^3.3.1",
+    "uuid": "^11.1.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "electron": "^35.0.1",
+    "electron-builder": "^26.0.12",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
+  }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Random Browser</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="tabsBar">
+  <div id="tabsList"></div>
+  <button id="newTab">+</button>
+</div>
+
+<div id="navBar">
+  <input type="text" id="addressBar" placeholder="Enter URL">
+  <button id="backBtn">←</button>
+  <button id="forwardBtn">→</button>
+  <button id="reloadBtn">⟳</button>
+</div>
+
+<script>
+const { ipcRenderer } = require('electron')
+
+// New tab button
+document.getElementById('newTab').addEventListener('click', () => ipcRenderer.send('new-tab'))
+
+// Address bar navigation
+document.getElementById('addressBar').addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    let url = e.target.value.trim()
+    ipcRenderer.send('navigate-url', url)
+  }
+})
+
+// Navigation buttons
+document.getElementById('backBtn').addEventListener('click', () => ipcRenderer.send('navigate-back'))
+document.getElementById('forwardBtn').addEventListener('click', () => ipcRenderer.send('navigate-forward'))
+document.getElementById('reloadBtn').addEventListener('click', () => ipcRenderer.send('navigate-reload'))
+
+// Update tabs UI
+ipcRenderer.on('tabs-updated', (event, tabs, currentIndex) => {
+  const container = document.getElementById('tabsList')
+  const addressBar = document.getElementById('addressBar')
+  container.innerHTML = ''
+
+  tabs.forEach((tab, i) => {
+    const btn = document.createElement('div')
+    btn.className = 'tabBtn'
+    if(i === currentIndex) btn.classList.add('active')
+
+    const textSpan = document.createElement('span')
+    textSpan.className = 'tabTitle'
+    textSpan.textContent = tab.title
+    btn.appendChild(textSpan)
+
+    const closeBtn = document.createElement('button')
+    closeBtn.className = 'closeBtn'
+    closeBtn.textContent = '×'
+    closeBtn.onclick = e => { e.stopPropagation(); ipcRenderer.send('close-tab', i) }
+    btn.appendChild(closeBtn)
+
+    btn.onclick = () => ipcRenderer.send('switch-tab', i)
+    container.appendChild(btn)
+  })
+
+  // Update address bar
+  if(currentIndex >= 0) {
+    const tab = tabs[currentIndex]
+    addressBar.value = tab.urlDisplay || tab.urlResolved || tab.urlOriginal
+  }
+})
+</script>
+</body>
+</html>

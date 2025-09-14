@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    #addressBar {
+      width: 300px;
+      max-width: 90%;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    #addressBar:focus {
+      border-color: #0078ff;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #0078ff;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #005fcc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Home!</h1>
+  <input type="text" id="addressBar" placeholder="Search something...">
+  <button onclick="search()">Go</button>
+
+<script>
+if (typeof window.ipcRenderer === "undefined" && typeof require === "function") {
+  try {
+    window.ipcRenderer = require('electron').ipcRenderer;
+  } catch {}
+}
+
+function search() {
+  const query = document.getElementById("addressBar").value.trim();
+  if (query) {
+    if (window.ipcRenderer) {
+      window.ipcRenderer.send('navigate-url', "http://random-search-engine.rst/?q=" + encodeURIComponent(query));
+    } else {
+      window.location.href = "http://random-search-engine.rst/?q=" + encodeURIComponent(query);
+    }
+  }
+}
+
+document.getElementById("addressBar").addEventListener("keydown", e => {
+  if (e.key === "Enter") search();
+});
+</script>
+</body>
+</html>
