@@ -185,7 +185,7 @@ let placeholderUrlObj = null
 try {
   const domain = new URL(tempURL).hostname
   // Vérifie avec le DNS custom
-  const resp = await fetch(`http://127.0.0.1:8080/dns/${domain}.json`)
+  const resp = await fetch(`http://141.145.220.162:8080/dns/${domain}.json`)
   if(resp.ok) {
     const data = await resp.json()
     if (data.target) {
